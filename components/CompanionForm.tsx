@@ -6,6 +6,8 @@ import { z } from "zod"
 import React from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { redirect } from "next/navigation"
+
 
 import {
     Form,
@@ -19,6 +21,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { subjects } from "@/constants"
 import { Textarea } from "./ui/textarea"
+import { createCompanion } from "@/lib/actions/companion.actions"
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "Username is required." }),
@@ -26,7 +29,7 @@ const formSchema = z.object({
     topic: z.string().min(1, { message: "Topic is required." }),
     voice: z.string().min(1, { message: "Voice is required." }),
     style: z.string().min(1, { message: "Style is required." }),
-    duration: z.number().min(1, { message: "Duration is required." }), // <-- Remove z.coerce here
+    duration: z.coerce.number().min(1, { message: "Duration is required." }), // <-- Remove z.coerce here
 })
 
 const CompanionForm = () => {
@@ -42,8 +45,15 @@ const CompanionForm = () => {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) =>  {
+        const companion = await createCompanion(values);
+
+        if (companion) {
+            redirect(`/companions/${companion.id}`);
+        }else{
+            console.log("Error creating companion");
+            redirect('/');
+        }
     }
 
     return (
