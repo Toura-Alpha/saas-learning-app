@@ -43,14 +43,14 @@ const CompanionForm = () => {
             style: '',
             duration: 15,
         },
-    })
+    });
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) =>  {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         const companion = await createCompanion(values);
 
         if (companion) {
             redirect(`/companions/${companion.id}`);
-        }else{
+        } else {
             console.log("Error creating companion");
             redirect('/');
         }
@@ -93,13 +93,13 @@ const CompanionForm = () => {
                                     </SelectTrigger>
                                     <SelectContent>
                                         {subjects.map((subject) => (
-                                           <SelectItem 
+                                            <SelectItem
                                                 value={subject}
                                                 key={subject}
                                                 className="capitalize"
                                             >
                                                 {subject}
-                                            </SelectItem> 
+                                            </SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -115,9 +115,9 @@ const CompanionForm = () => {
                         <FormItem>
                             <FormLabel>What should the companion help with?</FormLabel>
                             <FormControl>
-                                <Textarea 
-                                    placeholder="EX. Derivatives & Integrals" 
-                                    {...field} 
+                                <Textarea
+                                    placeholder="EX. Derivatives & Integrals"
+                                    {...field}
                                     className="input"
                                 />
                             </FormControl>
@@ -190,7 +190,7 @@ const CompanionForm = () => {
                         <FormItem>
                             <FormLabel>Estimated session duration in minutes</FormLabel>
                             <FormControl>
-                                <Input type="number" placeholder="15" {...field} className="input"/>
+                                <Input type="number" placeholder="15" {...field} className="input" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
