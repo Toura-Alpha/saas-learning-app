@@ -1,0 +1,3 @@
+- [ ] Fix clientMessages and serverMessages in lib/utils.ts (set to [] instead of undefined)
+- [ ] Fix assistantOverrides in components/companionComponent.tsx (use plural names)
+- [ ] Test the fix by running the app and starting a session
